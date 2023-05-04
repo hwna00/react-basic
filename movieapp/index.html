@@ -17,33 +17,25 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
+    let counter = 10;
 
-    // 아래 형식의 JSX를 브라우저가 이해하기 위해서는 babel이 필요하다
-    function Title() {
-      return (
-        <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
-          hello
-        </h3>
-      );
+    function render() {
+      // dom을 다시 랜더링 해주어야 값의 변화가 ui에 반영된다.
+      ReactDOM.render(<Container />, root);
     }
-    const Button = () => (
-      <button
-        style={{ backgroundColor: "tomato" }}
-        onClick={() => console.log("I'm clicked")}
-      >
-        Click me
-      </button>
-    );
 
-    // Title, Button 을 인식하기 위해서는 각 컴포넌트를 함수로 만들어 주어야 한다.
-    // 각 변수 이름을 Capitalize 해주어야 한다.
+    function countUp() {
+      counter++;
+      render();
+    }
+
     const Container = () => (
+      // Container가 re-render 될 때마다 전체가 랜더링 되는 것이 아니라 변화 있는 부분만 찾아서 다시 랜더링 된다.
       <div>
-        <Title />
-        <Button />
-        <button>html button</button>
+        <h3>Total clicks: {counter}</h3>
+        <button onClick={countUp}>Click me</button>
       </div>
     );
-    ReactDOM.render(<Container />, root);
+    render();
   </script>
 </html>
