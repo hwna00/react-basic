@@ -17,25 +17,19 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    let counter = 10;
 
-    function render() {
-      // dom을 다시 랜더링 해주어야 값의 변화가 ui에 반영된다.
-      ReactDOM.render(<Container />, root);
+    function App() {
+      const [counter, setCounter] = React.useState(0);
+      const onClick = () => {
+        setCounter(counter + 1);
+      };
+      return (
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button onClick={onClick}>Click me</button>
+        </div>
+      );
     }
-
-    function countUp() {
-      counter++;
-      render();
-    }
-
-    const Container = () => (
-      // Container가 re-render 될 때마다 전체가 랜더링 되는 것이 아니라 변화 있는 부분만 찾아서 다시 랜더링 된다.
-      <div>
-        <h3>Total clicks: {counter}</h3>
-        <button onClick={countUp}>Click me</button>
-      </div>
-    );
-    render();
+    ReactDOM.render(<App />, root);
   </script>
 </html>
