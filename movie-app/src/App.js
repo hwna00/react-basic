@@ -3,7 +3,7 @@ import { useState } from "react";
 function App() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
-  const onChange = (event) => {
+  const handleChange = (event) => {
     setTodo(event.target.value);
   };
   const handleSubmit = (event) => {
@@ -20,14 +20,19 @@ function App() {
       <h1>My Todos ({todos.length})</h1>
       <form onSubmit={handleSubmit}>
         <input
-          onChange={onChange}
+          onChange={handleChange}
           value={todo}
           type="text"
           placeholder="Write your to do..."
         />
         <button>Add Todo</button>
       </form>
-      <ul></ul>
+      <hr></hr>
+      <ul>
+        {todos.map((item, idx) => (
+          <li key={idx}>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 }
