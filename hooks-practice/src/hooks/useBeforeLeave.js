@@ -19,16 +19,4 @@ const useBeforeLeave = (onBefore) => {
   }, [handle, onBefore]);
 };
 
-function App() {
-  const begForLife = () => {
-    console.log("plz don't leave...");
-  };
-  useBeforeLeave(begForLife);
-  return (
-    <div className="App">
-      <h1>Hi</h1>
-    </div>
-  );
-}
-
-export default App;
+export default useBeforeLeave;
