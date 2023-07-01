@@ -36,18 +36,4 @@ const useAxios = (opts, axiosInstance = defaultAxios) => {
   return { ...state, refetch };
 };
 
-function App() {
-  const { loading, err, data, refetch } = useAxios({
-    url: "https://yts.mx/api/v2/list_movies.json",
-  });
-  console.log(loading, data, err);
-  return (
-    <div className="App">
-      <h1>{data && data.status}</h1>
-      <h2>{loading && "Loading"}</h2>
-      <button onClick={refetch}>Refetch</button>
-    </div>
-  );
-}
-
-export default App;
+export default useAxios;
