@@ -37,23 +37,4 @@ const useFullScreen = (callback) => {
   return { element, triggerFull, exitFull };
 };
 
-function App() {
-  const onFulls = (isFull) => {
-    console.log(isFull ? "We are full" : "We art not full");
-  };
-  const { element, triggerFull, exitFull } = useFullScreen(onFulls);
-  return (
-    <div className="App">
-      <div ref={element}>
-        <img
-          src="https://avatars.githubusercontent.com/u/61866802?v=4"
-          alt="profile"
-        ></img>
-        <button onClick={exitFull}>Exit Fullscreen</button>
-      </div>
-      <button onClick={triggerFull}>Make Fullscreen</button>
-    </div>
-  );
-}
-
-export default App;
+export default useFullScreen;
