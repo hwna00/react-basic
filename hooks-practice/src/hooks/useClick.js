@@ -18,14 +18,4 @@ const useClick = (onClick) => {
   return ref;
 };
 
-function App() {
-  const sayHello = () => console.log("say hello");
-  const title = useClick(sayHello);
-  return (
-    <div className="App">
-      <div ref={title}>Hi</div>
-    </div>
-  );
-}
-
-export default App;
+export default useClick;
