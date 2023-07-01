@@ -1,5 +1,3 @@
-import { useEffect, useRef } from "react";
-
 const useNotification = (title, options) => {
   if (!("Notification" in window)) {
     return;
@@ -21,15 +19,4 @@ const useNotification = (title, options) => {
   return fireNotif;
 };
 
-function App() {
-  const triggerNotif = useNotification("Can I steal your kimchi?", {
-    body: "I love kimchi",
-  });
-  return (
-    <div className="App">
-      <button onClick={triggerNotif}>Hello</button>
-    </div>
-  );
-}
-
-export default App;
+export default useNotification;
