@@ -1,38 +1,56 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-const plus = document.getElementById("add");
-const minus = document.getElementById("minus");
-const number = document.querySelector("span");
+const form = document.querySelector("form");
+const input = document.querySelector("input");
+const ul = document.querySelector("ul");
 
-const initialState = { value: 0 };
-number.innerText = initialState.value;
+const initialState = { todos: [] };
 
-const counterSlice = createSlice({
-  name: "counter",
+const listSlice = createSlice({
+  name: "list",
   initialState,
   reducers: {
-    increment: (state) => {
-      number.innerText = ++state.value;
+    addItem: (state, action) => {
+      state.todos = [...state.todos, { text: action.payload, id: Date.now() }];
     },
-    decrement: (state) => {
-      number.innerText = --state.value;
+    deleteItem: (state, action) => {
+      console.log("delete item");
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
   },
 });
 
-const { increment, decrement } = counterSlice.actions;
-const counterReducer = counterSlice.reducer;
+const { addItem, deleteItem } = listSlice.actions;
+const listReducer = listSlice.reducer;
 
-const counterStore = configureStore({
+const listStore = configureStore({
   reducer: {
-    counter: counterReducer,
+    list: listReducer,
   },
 });
 
-plus.addEventListener("click", () => {
-  counterStore.dispatch(increment());
-});
+const paintTodos = () => {
+  const todos = listStore.getState().list.todos;
+  ul.innerHTML = "";
+  todos.forEach((todo) => {
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.innerText = "DEL";
+    btn.addEventListener("click", (event) => {
+      // const id = event.target.parentNode.id;
+      listStore.dispatch(deleteItem(todo.id));
+    });
+    li.id = todo.id;
+    li.innerText = todo.text;
+    li.appendChild(btn);
+    ul.appendChild(li);
+  });
+};
+listStore.subscribe(paintTodos);
 
-minus.addEventListener("click", () => {
-  counterStore.dispatch(decrement());
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const text = input.value;
+  input.value = "";
+  listStore.dispatch(addItem(text));
 });
