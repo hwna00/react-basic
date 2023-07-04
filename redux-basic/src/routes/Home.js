@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { actionCreators } from "../store";
 import ToDo from "../components/ToDo";
 
-function Home({ toDos, addToDo, deleteToDo }) {
+function Home({ toDos, addToDo }) {
   const [text, setText] = useState("");
   function onChange(e) {
     setText(e.target.value);
